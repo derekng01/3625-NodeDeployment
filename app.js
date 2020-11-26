@@ -15,7 +15,14 @@ var catalogRouter = require('./routes/catalog');  //Import routes for "catalog" 
 
 //DB
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://admin:P@ssw0rd@cluster0.kvnth.mongodb.net/local_library?retryWrites=true&w=majority';
+
+var dev_db_url = 'mongodb+srv://admin:P@ssw0rd@cluster0.kvnth.mongodb.net/local_library?retryWrites=true&w=majority';
+
+
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+
+
+
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
